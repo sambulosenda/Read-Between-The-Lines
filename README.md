@@ -1,10 +1,14 @@
 # Read Between the Lines
 
-This is an app that allows you to upload files and convert them into AudioBooks.
+This is an app that allows you to upload text documents and convert them into AudioBooks. It uses Machine learning to create emphasis in the correct places so it feel like the book is actually being read to you.
 
-The [Text to Speech][service_url] service uses IBM's speech synthesis capabilities to convert English or Spanish text to an audio signal. The audio is streamed back to the client with minimal delay. The service can be accessed via a REST interface.
+It's built using Python Flask, IBM Watson, PDFJS, and the Stripe api to process payments for the books.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/watson-developer-cloud/text-to-speech-python)
+## IN ACTIVE DEVELOPMENT.
+
+You can use and try out the service [here](http://readbtl.mybluemix.net/).
+
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/DavidAwad/Read-Between-The-Lines)
 
 
 ## Running locally
@@ -44,6 +48,9 @@ The [Text to Speech][service_url] service uses IBM's speech synthesis capabiliti
 5. Go to
   `http://localhost:3000`
 
+## Resources
+- http://jsfiddle.net/go279m0h/
+- http://stackoverflow.com/questions/1554280/extract-text-from-pdf-in-javascript
 
 ## License
 

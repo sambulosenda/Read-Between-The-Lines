@@ -1,8 +1,17 @@
+from flask import *
 import os
 import requests
 import json
-from flask import *
 from werkzeug import secure_filename
+import secrets
+import stripe
+import sendgrid
+
+stripe.api_key = secrets.stripe_key
+
+sg = sendgrid.SendGridClient(secrets.sendgrid_uname, secrets.sendgrid_pass)
+
+
 app = Flask(__name__)
 
 # This is the path to the upload directory
@@ -60,22 +69,6 @@ class TextToSpeechService:
 def homepage():
     return render_template('theme.html')
 
-# Route that will process the file upload
-@app.route('/upload', methods=['POST'])
-def upload():
-    # Get the name of the uploaded file
-    file = request.files['file']
-    # Check if the file is one of the allowed types/extensions
-    if file and allowed_file(file.filename):
-        # Make the filename safe, remove unsupported chars
-        filename = secure_filename(file.filename)
-        # Move the file form the temporal folder to
-        # the upload folder we setup
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # Redirect the user to the uploaded_file route, which
-        # will basicaly show on the browser the uploaded file
-        return redirect(url_for('uploaded_file', filename=filename))
-
 @app.route('/synthesize', methods=['GET'])
 def synthesize():
     voice = request.args.get('voice', 'VoiceEnUsMichael')
@@ -96,7 +89,77 @@ def synthesize():
     except Exception,e:
         abort(500)
 
+# Route that will process the file upload
+@app.route('/charge', methods=['POST'])
+def upload():
+    print 'CHARGING CARD. MONEY BEING MADE SON.'
+    # read the audio book from the page
+    # song = request.files['file']
+    print request.form
+    stripeToken = request.form['stripeToken']
+    stripeEmail = request.form['stripeEmail']
+    try:
+        stripe.Charge.create(
+          amount=100,
+          currency="usd",
+          source=stripeToken, # obtained with Stripe.js
+          description="Charge for "+ stripeEmail
+        )
+        pass
+    except stripe.error.CardError, e:
+        # Since it's a decline, stripe.error.CardError will be caught
+        body = e.json_body
+        err  = body['error']
 
+        print "Status is: %s" % e.http_status
+        print "Type is: %s" % err['type']
+        print "Code is: %s" % err['code']
+        # param is '' in this case
+        print "Param is: %s" % err['param']
+        print "Message is: %s" % err['message']
+    except stripe.error.InvalidRequestError, e:
+        # Invalid parameters were supplied to Stripe's API
+        print e
+        pass
+    except stripe.error.AuthenticationError, e:
+        # Authentication with Stripe's API failed
+        # (maybe you changed API keys recently)
+        print e
+        pass
+    except stripe.error.APIConnectionError, e:
+        # Network communication with Stripe failed
+        print e
+        pass
+    except stripe.error.StripeError, e:
+        # Display a very generic error to the user, and maybe send
+        # yourself an email
+        message = sendgrid.Mail()
+        message.add_to('David Awad <davidawad64@email.com>')
+        message.set_subject('Weird Stripe Error')
+        ##message.set_html()
+        message.set_text('received a python exception from Stripe : ' + str(e) )
+        message.set_from('Read Between the Lines <admin@rbtl.com>')
+        status, msg = sg.send(message)
+        print e
+        pass
+    except Exception, e:
+        # Something else happened, completely unrelated to Stripe
+        print e
+        pass
+    return render_template('theme.html', paid=True)
+
+@app.route('/contact', methods=['POST'])
+def contact():
+    #email = request.form['email']
+    message = sendgrid.Mail()
+    message.add_to('David Awad <davidawad64@email.com>')
+    message.set_subject('Contact from Read Between the Lines')
+    message.add_cc( request.form['email'] )
+    #message.set_html('Body')
+    message.set_text( request.form['message'] )
+    message.set_from( request.form['name'] +' <' + request.form['email'] + '>')
+    status, msg = sg.send(message)
+    return render_template('theme.html', email=True )
 
 
 # page not found
@@ -129,4 +192,4 @@ if __name__ == "__main__":
     app.run(host=HOST_NAME, port=int(PORT_NUMBER), debug=True)
 
     # Start the server
-    print("Listening on %s:%d" % (HOST_NAME, port))
+    #print("Listening on %s:%d" % (HOST_NAME, port))

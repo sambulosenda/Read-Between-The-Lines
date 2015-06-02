@@ -1,4 +1,5 @@
 *.pyc
 venv
 .DS_STORE
-
+secrets.py
+stripe_test.py
