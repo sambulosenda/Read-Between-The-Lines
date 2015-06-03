@@ -70,7 +70,7 @@ Jared had looked solemn for the rest of the day and I didn't understand why, non
                                     <audio id="AudioBook" autoplay preload="auto" autobuffer controls class="audio"></audio>
                                 </div>
                                 <div>
-                                  <span class="help-block">If you like this AudioBook, you can download it here.</span>
+                                  <span class="help-block">If you like this AudioBook, you can download it by clicking the link below.</span>
                                 </div>
                             </div>
                             <div style="display:none" class="well error">
@@ -81,6 +81,16 @@ Jared had looked solemn for the rest of the day and I didn't understand why, non
                                 </div>
                             </div>
                         </div>
+                        <div class="text-center">
+                        {% if paid %}
+                          <script>
+                            $('#payButton').remove();
+                          </script>
+                          <h3> Thank You for your donation!! Enjoy your free AudioBook!</h3>
+                        {% endif %}
+                        <a id="bookLink" class="btn contrast" style="text-decoration:none" href="" onclick="loading()" download><label>AudioBook.opus</label> &nbsp; <i class="fa fa-2x fa-music"></i> </a>
+                        <i id="loading" class="fa fa-2x fa-circle-o-notch fa-spin"></i>
+
                         <form action="/charge" method="POST" id="payButton">
                           <script
                             src="https://checkout.stripe.com/checkout.js"
@@ -92,13 +102,10 @@ Jared had looked solemn for the rest of the day and I didn't understand why, non
                             data-amount="100">
                           </script>
                         </form> <!-- Data Amount in cents -->
-                        {% if paid %}
-                          <script>
-                            $('#payButton').remove();
-                          </script>
-                          <h3> Thank You for your donation!! Enjoy your free AudioBook!</h3>
-                        {% endif %}
-                        <a id="bookLink" class="btn contrast" style="text-decoration:none" href="" download><label>AudioBook.opus</label> &nbsp; <i class="fa fa-2x fa-music"></i> </a>
+                        <br>
+                        <br>
+                        <br>
+                      </div>
                     </div>
                 </div>
             </div>

@@ -284,6 +284,10 @@ section.success a.active {
     background: #fff;
 }
 
+#loading{
+  color:#18bc9c;
+}
+
 .floating-label-form-group {
     position: relative;
     margin-bottom: 0;

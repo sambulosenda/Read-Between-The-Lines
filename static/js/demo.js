@@ -50,28 +50,9 @@ $(document).ready(function() {
     }
   });
 
-  function validText(text) {
-    if ($.trim(text)) {
-      $('.error').hide();
-      return true;
-    } else {
-      $('.errorMsg').text('Please enter the text you would like to synthesize in the text window.');
-      $('.errorMsg').css('color','#00b2ef');
-      $('.error').show();
-      return false;
-    }
-  }
 
   $('#payButton').hide();
   $('#bookLink').hide();
+  $('#loading').hide();
 
-  /*
-  debugging code.
-  $('#readBook').click(function(){
-    if(shown === 0){
-      shown = 1 ;
-      $('#payButton').fadeIn(1600);
-    }
-  });
-  */
 });

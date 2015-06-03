@@ -166,7 +166,27 @@
     })
     */
     </script>
+<script>
+function validText(text) {
+  if ($.trim(text)) {
+    $('.error').hide();
+    return true;
+  } else {
+    $('.errorMsg').text('Please enter the text you would like to synthesize in the text window.');
+    $('.errorMsg').css('color','#00b2ef');
+    $('.error').show();
+    return false;
+  }
+}
 
+function loading(){
+  $('#loading').show();
+  setTimeout(2000, function() {
+    $('#loading').hide();
+  });
+}
+
+</script>
 
 </body>
 
