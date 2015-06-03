@@ -1,22 +1,3 @@
-/**
- * Copyright 2014 IBM Corp. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/*global $:false */
-
-'use strict';
-
 $(document).ready(function() {
   var audio = $('.audio').get(0),
     textArea = $('#textArea');
@@ -33,7 +14,7 @@ $(document).ready(function() {
 
   $('.audio').on('error', function () {
     $('.result').hide();
-    $('errorMgs').text('Error processing the request.');
+    $('errorMgs').text('Sorry about this! There seems to have been an error processing your request. Please try again or contact me, at davidawad64@gmail.com');
     $('.errorMsg').css('color','red');
     $('.error').show();
   });
@@ -41,6 +22,13 @@ $(document).ready(function() {
   $('.audio').on('loadeddata', function () {
     $('.result').show();
     $('.error').hide();
+    $('#payButton').fadeIn(1600);
+
+    $('#bookLink').fadeIn(1600);
+
+    var audioURL = document.getElementById('AudioBook');
+    $('#bookLink').attr('href', audioURL.src);
+
   });
 
   $('.download-button').click(function() {
@@ -53,6 +41,8 @@ $(document).ready(function() {
   $('.speak-button').click(function() {
     $('.result').hide();
     audio.pause();
+
+    $('#output').typeTo("Your AudioBook Will Appear Here!");
 
     $('#textArea').focus();
     if (validText(textArea.val())) {
@@ -71,4 +61,17 @@ $(document).ready(function() {
       return false;
     }
   }
+
+  $('#payButton').hide();
+  $('#bookLink').hide();
+
+  /*
+  debugging code.
+  $('#readBook').click(function(){
+    if(shown === 0){
+      shown = 1 ;
+      $('#payButton').fadeIn(1600);
+    }
+  });
+  */
 });

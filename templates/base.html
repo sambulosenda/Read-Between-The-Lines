@@ -56,10 +56,10 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio">Portfolio</a>
+                        <a href="#portfolio">Home</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">About</a>
+                        <a href="#about">Books</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#contact">Contact</a>
@@ -79,7 +79,7 @@
                     <div class="intro-text">
                         <span class="name">Read Between the Lines</span>
                         <hr class="star-light">
-                        <span class="skills">A service that generates Audio Books on Demand</span>
+                        <span class="skills">A service that leverages machine learning to generate realistic Audio Books</span>
                     </div>
                 </div>
             </div>
@@ -100,19 +100,16 @@
     <script src="{{ url_for('static', filename='js/jqBootstrapValidation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/contact_me.js') }}"></script>
 
-    <!-- Custom Theme JavaScript -->
+    <!-- Extra Custom JavaScript -->
     <script src="{{ url_for('static', filename='js/freelancer.js') }}"></script>
-
-    <!-- -->
     <script src="{{ url_for('static', filename='js/browser-detect.js') }}" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='js/demo.js') }}" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='js/pdf.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/jquery.typer.js') }}" type="text/javascript"></script>
 
 
     <script>
-    $('#paymentForm').hide();
-
-    path = "{{ url_for('static', filename='') }}"
+    var path = "{{ url_for('static', filename='') }}"
     /**
      * Extract text from PDFs with PDF.js
      * Uses the demo pdf.js from https://mozilla.github.io/pdf.js/getting_started/
@@ -151,6 +148,7 @@
            pdfToText(files[0].text).then(function(result) {
             console.log("PDF done!", result);
            })
+
            /*
            console.log(evt.target.files);
            var reader = new FileReader();
@@ -159,11 +157,8 @@
            }
            //reader.readAsText(file)
            */
-        }
 
-      $('#readBook').click(function(){
-        $('#paymentForm').fadeIn()
-      });
+        }
 
     /* this will convert a pdf to text
     self.pdfToText( files[0].path ).then(function(result) {

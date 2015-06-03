@@ -94,7 +94,6 @@ def synthesize():
 def upload():
     print 'CHARGING CARD. MONEY BEING MADE SON.'
     # read the audio book from the page
-    # song = request.files['file']
     print request.form
     stripeToken = request.form['stripeToken']
     stripeEmail = request.form['stripeEmail']
@@ -150,12 +149,10 @@ def upload():
 
 @app.route('/contact', methods=['POST'])
 def contact():
-    #email = request.form['email']
     message = sendgrid.Mail()
     message.add_to('David Awad <davidawad64@email.com>')
     message.set_subject('Contact from Read Between the Lines')
     message.add_cc( request.form['email'] )
-    #message.set_html('Body')
     message.set_text( request.form['message'] )
     message.set_from( request.form['name'] +' <' + request.form['email'] + '>')
     status, msg = sg.send(message)
@@ -174,6 +171,7 @@ def new_page(error):
     print str(error) + ' error. weerd'
     return redirect(url_for('homepage'))
 
+# internal_Server_error
 @app.errorhandler(500)
 def internal_Server_error(error):
     print str(error) + ' error. whuuut'
