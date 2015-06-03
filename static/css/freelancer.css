@@ -260,6 +260,12 @@ section.success a.active {
     }
 }
 
+.contrast:focus,
+.contrast:active,
+.contrast:hover{
+  color: #18bc9c !important;
+}
+
 .btn-outline {
     margin-top: 15px;
     border: solid 2px #fff;
