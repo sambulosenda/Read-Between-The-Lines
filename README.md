@@ -1,4 +1,4 @@
-# Read Between the Lines
+# [Read Between the Lines](http://readbtl.mybluemix.net/)
 
 This is an app that allows you to upload text documents and convert them into AudioBooks. It uses Machine learning to create emphasis in the correct places so it feel like the book is actually being read to you.
 
