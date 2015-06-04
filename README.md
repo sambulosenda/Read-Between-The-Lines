@@ -2,6 +2,8 @@
 
 This is an app that allows you to upload text documents and convert them into AudioBooks. It uses Machine learning to create emphasis in the correct places so it feel like the book is actually being read to you.
 
+You're also given the option to donate using stripe! 
+
 It's built using Python Flask, IBM Watson, PDFJS, and the Stripe api to process payments for the books.
 
 ## IN ACTIVE DEVELOPMENT.

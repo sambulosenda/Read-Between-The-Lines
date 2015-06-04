@@ -85,7 +85,9 @@ def synthesize():
     try:
         req = textToSpeech.synthesize(text, voice, accept)
         return Response(stream_with_context(req.iter_content()),
-            headers=headers, content_type = req.headers['content-type'])
+                        headers=headers,
+                        content_type = req.headers['content-type']
+                        )
     except Exception,e:
         abort(500)
 
