@@ -17,5 +17,5 @@ ifdef message
 else
 	@echo "please specify message"
 endif
-
+	cf push
 
