@@ -67,7 +67,7 @@ class TextToSpeechService:
 
 @app.route('/', methods=['GET'])
 def homepage():
-    return render_template('theme.html' stripe_pubkey=secrets.stripe_pubkey)
+    return render_template('theme.html', stripe_pubkey=secrets.stripe_pubkey)
 
 @app.route('/synthesize', methods=['GET'])
 def synthesize():
